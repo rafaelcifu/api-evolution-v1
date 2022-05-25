@@ -1,15 +1,15 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-
 import { PrismaService } from 'src/database/PrismaService';
 import { UserDTO } from 'src/user/user.dto';
+import { LoginDTO } from 'src/login/login.dto';
 
 @Injectable()
 export class LoginService {
   constructor(private prisma: PrismaService) {}
 
-  async login(data: UserDTO) {
+  async login(data: LoginDTO) {
     const userAlreadyExists = await this.prisma.user.findUnique({
       where: {
         email: data.email,
@@ -42,7 +42,7 @@ export class LoginService {
     const login = {
       id: userAlreadyExists.id,
       email: userAlreadyExists.email,
-      usernme: userAlreadyExists.username,
+      username: userAlreadyExists.username,
       token: generateToken,
     };
     return login;

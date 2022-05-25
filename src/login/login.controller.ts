@@ -1,7 +1,8 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
-import { UserDTO } from 'src/user/user.dto';
 import { LoginService } from './login.service';
+import { LoginDTO } from 'src/login/login.dto';
+import { UserDTO } from 'src/user/user.dto';
 
 @Controller('login')
 export class LoginController {
@@ -9,9 +10,10 @@ export class LoginController {
 
   @Post()
   @ApiBody({
-    description: 'Para fazer login, username e password ou email e password',
+    description:
+      'Para fazer login, utilize email e password (ou username e password)',
   })
-  async login(@Body() data: UserDTO) {
+  async login(@Body() data: LoginDTO) {
     return this.loginService.login(data);
   }
 }
