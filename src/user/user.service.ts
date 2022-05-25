@@ -40,10 +40,24 @@ export class UserService {
         password: passwordHash,
       },
     });
-    return createUser;
+    const newUser = {
+      id: createUser.id,
+      name: createUser.name,
+      username: createUser.username,
+      email: createUser.email,
+      created_at: createUser.created_at,
+    };
+    return newUser;
   }
   // get em todos os usuários
   async findAll() {
     return await this.prisma.user.findMany();
+  }
+  async findAllWithPosts() {
+    return await this.prisma.user.findMany({
+      include: {
+        Posts: true,
+      },
+    });
   }
 }

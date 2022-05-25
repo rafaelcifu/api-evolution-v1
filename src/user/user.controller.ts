@@ -19,4 +19,8 @@ export class UserController {
   async findAll() {
     return this.userService.findAll();
   }
+  @Get('/with-posts')
+  async findAllWithPosts() {
+    return this.userService.findAllWithPosts();
+  }
 }
