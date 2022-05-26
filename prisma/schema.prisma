@@ -12,7 +12,7 @@ model User {
   name       String?
   username   String?  @unique
   email      String   @unique
-  password   String   @unique
+  password   String
   created_at DateTime @default(now())
   Posts      Post[]
 }
@@ -24,5 +24,6 @@ model Post {
   image_url   String
   author      User?    @relation(fields: [authorId], references: [id])
   authorId    String?
+  pubished    Boolean?
   created_at  DateTime @default(now())
 }

@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
+import { UserUpadateDTO } from './userupadate.dto';
 
 @Controller('user')
 export class UserController {
@@ -22,5 +31,9 @@ export class UserController {
   @Get('/with-posts')
   async findAllWithPosts() {
     return this.userService.findAllWithPosts();
+  }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() data: UserUpadateDTO) {
+    return this.userService.update(id, data);
   }
 }

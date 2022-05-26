@@ -2,6 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { UserDTO } from './user.dto';
 import { hash } from 'bcryptjs';
+import { UserUpadateDTO } from './userupadate.dto';
 
 @Injectable()
 export class UserService {
@@ -49,14 +50,50 @@ export class UserService {
     };
     return newUser;
   }
+
   // get em todos os usuários
   async findAll() {
-    return await this.prisma.user.findMany();
+    return await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        email: true,
+        created_at: true,
+      },
+    });
   }
+
+  // get nos usuários que tem posts, incluindo o objeto de posts
   async findAllWithPosts() {
     return await this.prisma.user.findMany({
       include: {
         Posts: true,
+      },
+    });
+  }
+
+  async update(id: string, data: UserUpadateDTO) {
+    const userExists = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!userExists) {
+      throw new HttpException('User doesnt exists', 400);
+    }
+    return await this.prisma.user.update({
+      data: {
+        name: data.name,
+        username: data.username,
+      },
+      where: {
+        id,
+      },
+      select: {
+        name: true,
+        username: true,
+        email: true,
       },
     });
   }

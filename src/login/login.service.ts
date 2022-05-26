@@ -2,7 +2,6 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { PrismaService } from 'src/database/PrismaService';
-import { UserDTO } from 'src/user/user.dto';
 import { LoginDTO } from 'src/login/login.dto';
 
 @Injectable()
