@@ -68,11 +68,12 @@ export class UserService {
   async findAllWithPosts() {
     return await this.prisma.user.findMany({
       include: {
-        Posts: true,
+        posts: true,
       },
     });
   }
 
+  // altera o name, username e email do usuario
   async update(id: string, data: UserUpadateDTO) {
     const userExists = await this.prisma.user.findUnique({
       where: {
@@ -93,6 +94,25 @@ export class UserService {
       select: {
         name: true,
         username: true,
+        email: true,
+      },
+    });
+  }
+  async delete(id: string) {
+    const userExists = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!userExists) {
+      throw new HttpException('User doesnt exists', 400);
+    }
+    return await this.prisma.user.delete({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
         email: true,
       },
     });

@@ -36,4 +36,8 @@ export class UserController {
   async update(@Param('id') id: string, @Body() data: UserUpadateDTO) {
     return this.userService.update(id, data);
   }
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return this.userService.delete(id);
+  }
 }
