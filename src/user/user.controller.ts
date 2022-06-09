@@ -18,7 +18,7 @@ export class UserController {
 
   @Post()
   @ApiBody({
-    description: 'Criar um usuário, obrigatório: username, email e password',
+    description: 'Criar um user, obrigatório: username, email e password',
   })
   async create(@Body() data: UserDTO) {
     return this.userService.create(data);
