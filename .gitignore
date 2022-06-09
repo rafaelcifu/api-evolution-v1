@@ -1,3 +1,6 @@
+# Secret file
+.env
+
 # compiled output
 /dist
 /node_modules
@@ -18,7 +21,6 @@ lerna-debug.log*
 /coverage
 /.nyc_output
 
-.env
 # IDEs and editors
 /.idea
 .project
