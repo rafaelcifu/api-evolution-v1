@@ -10,7 +10,7 @@ async function bootstrap() {
     .setTitle('Evolution API - Frontgram')
     .setDescription('API feita para o curso Evolution da FrontAcademy')
     .setVersion('1.0')
-    .addTag('Users')
+    .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

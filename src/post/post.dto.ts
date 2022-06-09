@@ -3,4 +3,5 @@ export class PostDTO {
   description: string;
   image_url: string;
   authorId?: string;
+  pubished?: boolean;
 }
