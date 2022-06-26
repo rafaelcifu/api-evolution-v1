@@ -21,7 +21,6 @@ export class UploadimageController {
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
     return this.uploadimageService.upload(file);
   }
 }
