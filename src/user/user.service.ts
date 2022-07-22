@@ -117,4 +117,14 @@ export class UserService {
       },
     });
   }
+  async likesByUserId(id: string) {
+    return await this.prisma.user.findMany({
+      where: {
+        id,
+      },
+      select: {
+        Likes: true,
+      },
+    });
+  }
 }

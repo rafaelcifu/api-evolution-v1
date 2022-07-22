@@ -79,4 +79,11 @@ export class PostService {
       },
     });
   }
+  async getPostsWithLikes() {
+    return await this.prisma.post.findMany({
+      include: {
+        likes: true,
+      },
+    });
+  }
 }

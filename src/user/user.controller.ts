@@ -32,6 +32,11 @@ export class UserController {
   async findAllWithPosts() {
     return this.userService.findAllWithPosts();
   }
+  @Get('/likes-by-user-id/:id')
+  async likesByUserId(@Param('id') id: string) {
+    return this.userService.likesByUserId(id);
+  }
+
   @Put(':id')
   async update(
     @Param('id') id: string,

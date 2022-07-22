@@ -26,6 +26,11 @@ export class PostController {
   async findAllPosts() {
     return this.postService.findAllPosts();
   }
+  @Get('/with-likes')
+  async getPostsWithLikes() {
+    return this.postService.getPostsWithLikes();
+  }
+
   @Get('?search=:description')
   async searchPostByDescription(
     @Param('description') description: string,
