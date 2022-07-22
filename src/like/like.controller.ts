@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { LikeDTO } from './like.dto';
 import { LikeService } from './like.service';
@@ -14,5 +14,9 @@ export class LikeController {
   })
   async createLike(@Body() data: LikeDTO) {
     return this.likeService.createLike(data);
+  }
+  @Put(':id')
+  async upadateLike(@Param('id') id: string, @Body() data: LikeDTO) {
+    return this.likeService.updateLike(id, data);
   }
 }

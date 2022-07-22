@@ -52,8 +52,31 @@ export class LikeService {
       },
     });
     if (!postExists) {
-      throw new HttpException('Post doesnt exists', 400);
+      throw new HttpException('Like register doesnt exists', 400);
     }
-    const updateLike = {};
+    const updateLike = await this.prisma.likes.update({
+      where: {
+        id,
+      },
+      data: {
+        liked: data.liked,
+        postId: data.postId,
+      },
+    });
+    const countPostLikes = await this.prisma.likes.count({
+      where: {
+        postId: data.postId,
+        liked: true,
+      },
+    });
+    const updatePostLikesCounter = await this.prisma.post.update({
+      data: {
+        likes_counter: countPostLikes,
+      },
+      where: {
+        id: data.postId,
+      },
+    });
+    return updateLike;
   }
 }
