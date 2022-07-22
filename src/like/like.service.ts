@@ -45,4 +45,15 @@ export class LikeService {
     });
     return newLike;
   }
+  async updateLike(id: string, data: LikeDTO) {
+    const postExists = await this.prisma.likes.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!postExists) {
+      throw new HttpException('Post doesnt exists', 400);
+    }
+    const updateLike = {};
+  }
 }
