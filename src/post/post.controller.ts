@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,7 +26,7 @@ export class PostController {
   async findAllPosts() {
     return this.postService.findAllPosts();
   }
-  @Get('/search=:description')
+  @Get('?search=:description')
   async searchPostByDescription(
     @Param('description') description: string,
     @Body() data: PostDTO,
@@ -33,18 +34,14 @@ export class PostController {
     return this.postService.searchPostByDescription(description, data);
   }
   @Get(':AuthorId')
-  async GetPostByAuthorId(
+  async getPostByAuthorId(
     @Param('AuthorId') AuthorId: string,
     @Body() data: PostDTO,
   ) {
-    return this.postService.GetPostByAuthorId(AuthorId, data);
+    return this.postService.getPostByAuthorId(AuthorId, data);
+  }
+  @Put(':id')
+  async updatePost(@Param('id') id: string, @Body() data: PostDTO) {
+    return this.postService.updatePost(id, data);
   }
 }
-
-// @Post()
-// @UseInterceptors(FileInterceptor('file'))
-// createPost(@UploadedFile() file: Express.Multer.File, @Body() data: PostDTO) {
-//   console.log(file);
-//   return this.postService.createPost(data);
-// }
-// }

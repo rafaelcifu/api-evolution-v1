@@ -18,7 +18,7 @@ export class PostService {
     if (!authorIdExists) {
       throw new HttpException('Author doesnt exists', 400);
     }
-    // instanciar o service que faz upload na AWS
+    // instancia o service que faz upload na AWS
     const postImgUrl = await this.uploadimageService.upload(file);
 
     const newPost = await this.prisma.post.create({
@@ -28,6 +28,7 @@ export class PostService {
         description: data.description,
         image_url: postImgUrl.resourceUrl,
         title: data.title,
+        published: data.published,
       },
     });
     return newPost;
@@ -41,15 +42,40 @@ export class PostService {
         description: {
           contains: description,
         },
-        pubished: true,
+        published: true,
       },
     });
   }
-  async GetPostByAuthorId(AuthorId: string, data: PostDTO) {
+  async getPostByAuthorId(AuthorId: string, data: PostDTO) {
     return await this.prisma.post.findMany({
       where: {
         authorId: AuthorId,
-        pubished: true,
+        published: true,
+      },
+    });
+  }
+  async updatePost(id: string, data: PostDTO) {
+    const postExists = await this.prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!postExists) {
+      throw new HttpException('Post doesnt exists', 400);
+    }
+    return await this.prisma.post.update({
+      data: {
+        title: data.title,
+        description: data.description,
+        published: data.published,
+      },
+      where: {
+        id,
+      },
+      select: {
+        title: true,
+        published: true,
+        description: true,
       },
     });
   }

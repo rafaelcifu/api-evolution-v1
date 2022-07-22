@@ -15,16 +15,29 @@ model User {
   password   String
   posts      Post[]
   created_at DateTime @default(now())
+  Likes      Likes[]
 }
 
 model Post {
-  id          String   @id @default(uuid()) @map("_id")
-  title       String?
-  description String
-  image_url   String
-  author_name String?
-  author      User?    @relation(fields: [authorId], references: [id])
-  authorId    String
-  pubished    Boolean  @default(true)
-  created_at  DateTime @default(now())
+  id            String   @id @default(uuid()) @map("_id")
+  title         String?
+  description   String
+  image_url     String
+  author_name   String?
+  author        User?    @relation(fields: [authorId], references: [id])
+  authorId      String
+  published     Boolean  @default(true)
+  created_at    DateTime @default(now())
+  likes         Likes[]
+  likes_counter Int?
+}
+
+model Likes {
+  id         String   @id @default(uuid()) @map("_id")
+  user       User     @relation(fields: [userId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id])
+  userId     String
+  postId     String
+  liked      Boolean  @default(true)
+  created_at DateTime @default(now())
 }

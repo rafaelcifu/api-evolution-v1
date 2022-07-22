@@ -33,7 +33,10 @@ export class UserController {
     return this.userService.findAllWithPosts();
   }
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: UserUpadateDTO) {
+  async update(
+    @Param('id') id: string,
+    @Body() data: UserUpadateDTO,
+  ): Promise<{ name: string; username: string; email: string }> {
     return this.userService.update(id, data);
   }
   @Delete(':id')
