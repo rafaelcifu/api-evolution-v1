@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { PrismaService } from 'src/database/PrismaService';
 import { LoginDTO } from 'src/login/login.dto';
+require('dotenv').config();
 
 @Injectable()
 export class LoginService {
@@ -32,7 +33,7 @@ export class LoginService {
       {
         email: userAlreadyExists.email,
       },
-      '628a1004-7b2e-4b90-aaf6-679d7bf7d361',
+      process.env.JWT_TOKEN,
       {
         subject: userAlreadyExists.id,
         expiresIn: '1w',
