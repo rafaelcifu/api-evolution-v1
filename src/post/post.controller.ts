@@ -9,6 +9,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { IsPublic } from 'src/decorators/is-public.decorator';
 import { PostDTO } from './post.dto';
 import { PostService } from './post.service';
 
@@ -22,6 +23,7 @@ export class PostController {
     console.log(file);
     return this.postService.createPost(data, file);
   }
+
   @Get()
   async findAllPosts() {
     return this.postService.findAllPosts();

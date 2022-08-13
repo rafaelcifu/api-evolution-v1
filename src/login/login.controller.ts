@@ -3,11 +3,13 @@ import { ApiBody } from '@nestjs/swagger';
 import { LoginService } from './login.service';
 import { LoginDTO } from 'src/login/login.dto';
 import { UserDTO } from 'src/user/user.dto';
+import { IsPublic } from 'src/decorators/is-public.decorator';
 
 @Controller('login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
+  @IsPublic()
   @Post()
   @ApiBody({
     description:
