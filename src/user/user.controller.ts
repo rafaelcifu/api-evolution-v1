@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
+import { IsPublic } from 'src/decorators/is-public.decorator';
 import { UserDTO } from './user.dto';
 import { UserService } from './user.service';
 import { UserUpadateDTO } from './userupadate.dto';
@@ -16,6 +17,7 @@ import { UserUpadateDTO } from './userupadate.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @IsPublic()
   @Post()
   @ApiBody({
     description: 'Criar um user, obrigatório: username, email e password',
